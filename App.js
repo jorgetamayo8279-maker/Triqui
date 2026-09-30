@@ -1,20 +1,29 @@
+import { StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { LinearGradient } from 'expo-linear-gradient';
+import Game from './src/Game';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <StatusBar style="light" />
+      {/* El degradado va POR DETRÁS de SafeAreaView para que ocupe toda la
+          pantalla (incluidas notch/isla/barra de navegación) sin bandas de color */}
+      <LinearGradient colors={['#667eea', '#764ba2']} style={styles.container}>
+        <SafeAreaView style={styles.safeArea}>
+          <Game />
+        </SafeAreaView>
+      </LinearGradient>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  },
+  safeArea: {
+    flex: 1,
   },
 });
